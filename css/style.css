@@ -1,0 +1,92 @@
+body {
+    background-color: #444444;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: linear-gradient(to right, #ffffff 0px, transparent 0px), linear-gradient(to bottom, #ffffff 0px, transparent 0px);
+    background-size: 10px 10px;
+}
+
+.element {
+    opacity: 0.9;
+    position: absolute;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(116, 114, 114, 0.2);
+}
+
+.timer {
+    color: #ffffff;
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.timer-active {
+    color: rgba(9, 70, 6, 0.582);
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+button {
+    display: block;
+    width: 140px;
+    height: 60px;
+    margin-bottom: 5px;
+    background-color: rgba(200, 200, 200, 0.5);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgba(200, 200, 200, 0.7);
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    background-color: rgba(200, 200, 200, 0.9);
+}
+
+.start-button,
+.stop-button {
+  display: inline-block;
+  margin-right: 10px;
+  width: 65px;
+  height: 35px;
+}
+
+.kill-button,
+.color-button {
+    width: 140px;
+    height: 35px;
+  }
+
+.main-button {
+    width: 140px;
+    height: 55px;
+  }
+
+.name-input {
+    background-color: rgb(200, 200, 200);
+    color: rgb(0, 0, 0);
+    width: 140px;
+    height: 20px;
+}
