@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     stopAndRemoveAllButton.addEventListener("click", stopAndRemoveAllTimers);
 
     // Global variables
-    let activeTimer = null; // Variable to track the active timer
     let zIndexCounter = 1;
     const maxTimeout = 8 * 3600; // Max timeout per timer in seconds (8 hours)
 
@@ -30,28 +29,64 @@ document.addEventListener("DOMContentLoaded", function () {
         element.style.backgroundColor = getRandomColor();
         element.draggable = true;
 
-        // create text field: Custom Name
-        const nameInput = document.createElement("input");
-        nameInput.classList.add("name-input");
-        nameInput.type = "text";
-        nameInput.placeholder = "please give me names";
-        nameInput.style.position = "relative";
+        // create div 1
+        const elementDiv1 = document.createElement("div");
+        elementDiv1.classList.add("elementDiv1");
 
-        // create timer field: stopwatch
+        // create div 1a
+        const elementDiv1a = document.createElement("div");
+        elementDiv1a.classList.add("elementDiv1a");
+
+        // create div 2
+        const elementDiv2 = document.createElement("div");
+        elementDiv2.classList.add("elementDiv2");
+        
+        // create div 2a
+        const elementDiv2a = document.createElement("div");
+        elementDiv2a.classList.add("elementDiv2a");
+
+        // create div 2b
+        const elementDiv2b = document.createElement("div");
+        elementDiv2b.classList.add("elementDiv2b");
+
+        // create text field
+        const nameInput = document.createElement("input");
+        nameInput.classList.add("element-field-name");
+        nameInput.type = "text";
+        nameInput.placeholder = "What should I do?";
+
+        // create number field
+        const timeInput = document.createElement("input");
+        timeInput.classList.add("element-field-number");
+        timeInput.type = "number";
+
+        // create checkbox
+        const timeInputCheckbox = document.createElement("input");
+        timeInputCheckbox.classList.add("element-checkbox-number");
+        timeInputCheckbox.type = "checkbox";
+        timeInputCheckbox.name = "checkbox";
+    
+        // create checkbox label
+        const timeInputCheckboxLabel = document.createElement('label');
+        timeInputCheckboxLabel.classList.add("element-checkbox-label");
+        timeInputCheckboxLabel.textContent = "Alarm in Min.: ";
+
+        // create timerId counter
         const timerId = "timer-" + zIndexCounter; // Generate a unique ID for the timer element
         zIndexCounter++; // Increment zIndexCounter after setting the timer ID
+        
+        // create timer field: stopwatch
         const timerElement = document.createElement("div");
         timerElement.classList.add("timer");
         timerElement.setAttribute("id", timerId);
         timerElement.textContent = formatTime(elapsedTime);
         timerElement.timerId = timerId
-
+        
         // create button: start
         const startButton = document.createElement("button");
         startButton.classList.add("start-button");
         startButton.textContent = "Start";
         startButton.addEventListener("click", function () {
-            // only one timer should run at the same time
                 startTimer(timerElement);
             });
 
@@ -63,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 stopTimer(timerElement);
             });
 
-        // create button: change bg color of myself
+        // create button: change bg color
         const colorButton = document.createElement("button");
         colorButton.classList.add("color-button");
         colorButton.textContent = "Change Color";
@@ -77,16 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
         killButton.textContent = "Kill this Timer";
         killButton.addEventListener("click", function () {
                 killThisTimer(element);
-            });
-
-        // create checkbox: when checkbox is active, do never stop this timer even if another is started. run parallel
-        const activateCheckbox = document.createElement("input");
-        activateCheckbox.type = "checkbox";
-        activateCheckbox.addEventListener("change", function () {
-            if (activateCheckbox.checked) {
-                //later
-            }
-        });    
+            });  
 
         // Function to start the timer
         function startTimer(timerElement) {
@@ -94,13 +120,12 @@ document.addEventListener("DOMContentLoaded", function () {
             let startTime = Date.now() - (elapsedTime * 1000);
             let intervalId;
         
+            const durationInput = timerElement.querySelector(".duration-input");
+            const desiredTime = parseInt(durationInput, 10); // Get the desired time from the input field
+
             const updateTimer = () => {
             const currentTime = Date.now();
             const elapsed = Math.floor((currentTime - startTime) / 1000);
-        
-            const seconds = elapsed % 60;
-            const minutes = Math.floor((elapsed / 60) % 60);
-            const hours = Math.floor(elapsed / 3600);
         
             // Update the timer display within the timer element
             timerElement.textContent = formatTime(elapsed);
@@ -110,6 +135,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Update the elapsed time variable
             elapsedTime = elapsed;
+
+            // Check if the timer has reached a specific time (e.g., 10 minutes)
+            if (elapsed >= desiredTime) {
+                // Execute the desired code or function
+                handleTimerReachedTime(timerElement);
+            }
 
             };
         
@@ -128,17 +159,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+        // Function to handle the timer reaching a specific time
+        function handleTimerReachedTime(timerElement) {
+            // Do something when the timer reaches the desired time
+            console.log("Timer reached the desired time!");
+            // You can add your custom code or function call here
+            }
+
         // Function to change the background color of the timer
         function changeTimerColor() {
             element.style.backgroundColor = getRandomColor();
         }
 
-        element.appendChild(nameInput);
-        element.appendChild(timerElement);
-        element.appendChild(startButton);
-        element.appendChild(stopButton);
-        element.appendChild(killButton);
-        element.appendChild(colorButton);
+        element.appendChild(elementDiv1);
+        elementDiv1.appendChild(nameInput);
+        elementDiv1.appendChild(timerElement);
+        elementDiv1.appendChild(elementDiv1a);
+        elementDiv1a.appendChild(timeInputCheckbox);
+        elementDiv1a.appendChild(timeInputCheckboxLabel);
+        elementDiv1a.appendChild(timeInput);
+        element.appendChild(elementDiv2);
+        element.appendChild(elementDiv2a);
+        elementDiv2a.appendChild(startButton);
+        elementDiv2a.appendChild(stopButton);
+        element.appendChild(elementDiv2b);
+        elementDiv2b.appendChild(killButton);
+        elementDiv2b.appendChild(colorButton);
         taskContainer.appendChild(element);
 
         // make element draggable
@@ -192,11 +238,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Function to set the active timer
-    function setActiveTimer(timerElement) {
-        activeTimer = timerElement;
-    }
-
     // Function to stop the timer
     function stopTimer(timerElement) {
         if (timerElement.timerId) {
@@ -228,20 +269,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       }
 
-    // Function to stop the active timer
-    function stopActiveTimer() {
-        if (activeTimer) {
-    
-        // stop timer
-        //clearTimeout(activeTimer.timerId);
-        stopTimer(activeTimer);
-
-        // clear active Timer
-        //activeTimer = null;
-
-        }
-    }
-
     // Function to stop and remove all timers
     function stopAndRemoveAllTimers() {
         stopAllTimers();
@@ -251,7 +278,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // remove all timers
         Array.from(taskElements).forEach(function (element) {
-            console.log("This is elment: " + element)
             element.remove();
             
         });

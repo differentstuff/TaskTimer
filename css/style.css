@@ -19,10 +19,46 @@ body {
 
 .element {
     opacity: 0.9;
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    place-items: center;
     position: absolute;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(116, 114, 114, 0.2);
+}
+
+.elementDiv1 {
+    border: none;
+    align-items: center;
+    margin: auto;
+}
+
+.elementDiv1a {
+    border: none;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.elementDiv2 {
+    border: none;
+    align-items: center;
+    margin: auto;
+}
+
+.elementDiv2a {
+    border: none;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.elementDiv2b {
+    border: none;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .timer {
@@ -34,7 +70,7 @@ body {
 }
 
 .timer-active {
-    color: rgba(9, 70, 6, 0.582);
+    color: rgba(30, 69, 28, 0.664);
     font-size: 22px;
     text-align: center;
     margin-bottom: 10px;
@@ -67,26 +103,51 @@ button:active {
 
 .start-button,
 .stop-button {
-  display: inline-block;
-  margin-right: 10px;
-  width: 65px;
-  height: 35px;
+    display: inline-block;
+    width: 65px;
+    height: 35px;
+    margin-inline-start: 5px;
+    margin-inline-end: 5px;
 }
 
 .kill-button,
 .color-button {
     width: 140px;
     height: 35px;
-  }
+    margin-inline-start: 5px;
+    margin-inline-end: 5px;
+}
 
 .main-button {
     width: 140px;
     height: 55px;
-  }
+}
 
-.name-input {
+.element-field-name {
     background-color: rgb(200, 200, 200);
     color: rgb(0, 0, 0);
     width: 140px;
     height: 20px;
+    border-bottom: 2px;
+}
+
+.element-field-number {
+    background-color: rgb(234, 160, 160);
+    color: rgb(0, 0, 0);
+    width: 40px;
+    height: 20px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.element-checkbox-number {
+    background-color: rgb(234, 160, 160);
+    color: rgb(0, 0, 0);
+    align-items: center;
+    height: 50%;
+    width: 8%;
+}
+
+.element-checkbox-label {
+    font-size: 12px;
 }
